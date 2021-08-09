@@ -1,6 +1,9 @@
 package com.tarcio4lmeida.springbootmongodb.resources;
 
+import java.util.stream.Collectors;
+
 import com.tarcio4lmeida.springbootmongodb.domain.User;
+import com.tarcio4lmeida.springbootmongodb.dto.UserDTO;
 import com.tarcio4lmeida.springbootmongodb.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,10 @@ public class UserResource {
 	private UserService service;
 
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = service.findAll();
         
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
     }
 }
