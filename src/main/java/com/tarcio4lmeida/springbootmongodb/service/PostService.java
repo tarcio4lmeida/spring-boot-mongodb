@@ -1,5 +1,6 @@
 package com.tarcio4lmeida.springbootmongodb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.tarcio4lmeida.springbootmongodb.domain.Post;
@@ -20,4 +21,8 @@ public class PostService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 
+	public List<Post> findByTitle(String text) {
+		return repo.findByTitleContainingIgnoreCase(text);
+	}
+	
 }
