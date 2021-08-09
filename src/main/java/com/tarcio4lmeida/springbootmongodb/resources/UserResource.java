@@ -2,6 +2,7 @@ package com.tarcio4lmeida.springbootmongodb.resources;
 
 import java.util.stream.Collectors;
 
+import com.tarcio4lmeida.springbootmongodb.domain.Post;
 import com.tarcio4lmeida.springbootmongodb.domain.User;
 import com.tarcio4lmeida.springbootmongodb.dto.UserDTO;
 import com.tarcio4lmeida.springbootmongodb.service.UserService;
@@ -61,5 +62,11 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
+    @RequestMapping(value="/{id}/posts", method=RequestMethod.GET)
+ 	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+	}
+    
     
 }
